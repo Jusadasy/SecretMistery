@@ -570,6 +570,30 @@ setTimeout(()=>{
     cartaDiv.style.transform="translateX(-50%) translateY(-120px)";
 
 },1200);
+    cartaDiv.innerHTML="";
+
+    let i=0;
+
+    const escribir=setInterval(()=>{
+
+        cartaDiv.innerHTML+=carta.charAt(i);
+
+        cartaDiv.scrollTop=cartaDiv.scrollHeight;
+
+        i++;
+
+        if(i>=carta.length){
+
+            clearInterval(escribir);
+
+            iniciarContador();
+
+        }
+
+    },28);
+
+}
+
 /*==================================================
             CONTADOR
 ==================================================*/
