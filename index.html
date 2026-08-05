@@ -453,27 +453,41 @@ background:#ff4da6;
 
 display:none;
 
-margin-top:50px;
+margin:40px auto;
 
-width:80%;
+width:70%;
 
-max-width:900px;
+max-width:780px;
 
-background:#111;
+background:rgba(20,20,20,.55);
 
-padding:40px;
+backdrop-filter:blur(18px);
 
-border-radius:20px;
+-webkit-backdrop-filter:blur(18px);
 
-border:2px solid hotpink;
+padding:45px;
 
-box-shadow:0 0 25px hotpink;
+border-radius:25px;
+
+border:1px solid rgba(255,105,180,.5);
+
+box-shadow:
+0 0 25px rgba(255,105,180,.35),
+0 0 80px rgba(255,105,180,.15);
 
 font-size:20px;
 
-line-height:1.8;
+line-height:2;
 
 white-space:pre-line;
+
+text-align:center;
+
+color:white;
+
+overflow-y:auto;
+
+max-height:65vh;
 
 }
 
@@ -900,41 +914,39 @@ alert("Esa no es la palabra correcta.");
 }
 
 }
-const segundaCarta=`Felicidades.
+const segundaCarta=`¡Felicidades! Pudiste llegar aquí, ¿no habrás usado ninguna IA, no???? JAJAJA.
 
-Has conseguido resolver el segundo misterio.
+Bueno, no pasa nada, sabía que lo lograrías. Eres una persona maravillosa e inteligente, y por no hablar de otras cualidades que tienes, las cuales también destacan por encima de las de muchas otras personas. <3
 
-Si has llegado hasta aquí significa que has tenido la paciencia suficiente para seguir cada pista hasta el final.
+Bueno, estas cartas son para sacarte una sonrisa y son una forma de que no te olvides de mí, ya que, aparte de que todo el trabajo de la página me lo trago yo, también me divierte hacerla porque me hace recordar lo increíble que eres.
 
-No quería hacer una simple carta. Quería crear algo que te hiciera sonreír, que despertara un poco tu curiosidad y que, durante unos minutos, te hiciera olvidarte de todo lo demás.
+Bueno... tendrás que esperar un tiempo antes de la siguiente carta.
 
-Aún quedan más misterios por descubrir...
+Atentamente:
 
-Pero esos aparecerán cuando llegue el momento.
+Jairo.
 
-❤️`;
+Posdata: Gracias por ser mi amiga después de yo ser una tan mala persona. ;3`;
 
-function mostrarSegundaCarta(){
+function escribirSegundaCarta(){
 
-const carta=document.getElementById("segundaCarta");
+const destino=document.getElementById("segundaCarta");
 
-carta.style.display="block";
-
-carta.innerHTML="";
+destino.innerHTML="";
 
 let i=0;
 
-let escribir=setInterval(()=>{
+const efecto=setInterval(()=>{
 
-carta.innerHTML+=segundaCarta.charAt(i);
+destino.innerHTML+=segundaCarta.charAt(i);
+
+destino.scrollTop=destino.scrollHeight;
 
 i++;
 
 if(i>=segundaCarta.length){
 
-clearInterval(escribir);
-
-efectoFinal();
+clearInterval(efecto);
 
 }
 
