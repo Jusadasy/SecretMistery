@@ -254,7 +254,235 @@
       transform: scale(1.05);
       box-shadow: 0 0 30px #00ffa3;
     }
+#fase3{
 
+display:none;
+
+position:fixed;
+
+inset:0;
+
+overflow:hidden;
+
+background:linear-gradient(-45deg,#180000,#430000,#690000,#250000);
+
+background-size:400% 400%;
+
+animation:fondoRojo 12s infinite linear;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+color:white;
+
+}
+
+@keyframes fondoRojo{
+
+0%{
+
+background-position:0% 50%;
+
+}
+
+50%{
+
+background-position:100% 50%;
+
+}
+
+100%{
+
+background-position:0% 50%;
+
+}
+
+}
+
+#fase3 h1{
+
+font-size:45px;
+
+margin-bottom:25px;
+
+text-shadow:
+
+0 0 20px crimson,
+
+0 0 40px red,
+
+0 0 80px deeppink;
+
+}
+
+.textoMisterio{
+
+font-size:30px;
+
+margin-bottom:30px;
+
+letter-spacing:5px;
+
+color:#ffd1d1;
+
+}
+
+#fase3 input{
+
+width:320px;
+
+padding:15px;
+
+border-radius:15px;
+
+border:none;
+
+font-size:20px;
+
+text-align:center;
+
+outline:none;
+
+background:rgba(255,255,255,.15);
+
+backdrop-filter:blur(10px);
+
+color:white;
+
+}
+
+#fase3 button{
+
+margin-top:20px;
+
+padding:15px 35px;
+
+font-size:18px;
+
+border:none;
+
+border-radius:15px;
+
+cursor:pointer;
+
+background:crimson;
+
+color:white;
+
+transition:.3s;
+
+}
+
+#fase3 button:hover{
+
+transform:scale(1.05);
+
+}
+
+#carta3{
+
+display:none;
+
+margin-top:45px;
+
+width:70%;
+
+max-width:850px;
+
+padding:40px;
+
+border-radius:25px;
+
+background:rgba(255,255,255,.12);
+
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,.25);
+
+box-shadow:
+
+0 0 35px rgba(255,0,90,.35);
+
+font-size:21px;
+
+line-height:1.9;
+
+white-space:pre-line;
+
+overflow-y:auto;
+
+max-height:60vh;
+
+}
+
+#contador3{
+
+display:none;
+
+margin-top:30px;
+
+font-size:35px;
+
+font-weight:bold;
+
+}
+
+.rosa{
+
+position:absolute;
+
+font-size:60px;
+
+animation:girar 10s infinite linear;
+
+opacity:.75;
+
+}
+
+.r1{
+
+top:20px;
+
+left:20px;
+
+}
+
+.r2{
+
+top:20px;
+
+right:20px;
+
+}
+
+.r3{
+
+bottom:20px;
+
+left:20px;
+
+}
+
+.r4{
+
+bottom:20px;
+
+right:20px;
+
+}
+
+@keyframes girar{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
     /* segunda carta (estilo negro, misma temática) */
     #segundaCarta {
       display: none;
@@ -415,7 +643,48 @@ transform:scale(1);
 </div>
     <div id="binario">01010011 01100101 01101110 01110100 01101001<br>01101101 01101001 01100101 01101110 01110100<br>01101111 01110011</div>
   </div>
+<div id="fase3">
 
+<div class="rosa r1">🌹</div>
+<div class="rosa r2">🌹</div>
+<div class="rosa r3">🌹</div>
+<div class="rosa r4">🌹</div>
+
+<h1>❤️ Tercer Misterio ❤️</h1>
+
+<p class="textoMisterio">
+
+ᔑᒷリᒷᓵᒷᓭ╎ℸ ̣ 𝙹ᒷリᒲ╎⍊╎↸ᔑ
+
+</p>
+
+<p>
+
+Descifra la palabra y escríbela aquí.
+
+</p>
+
+<input
+id="respuesta3"
+placeholder="Escribe la palabra">
+
+<button onclick="comprobar3()">
+
+Desbloquear
+
+</button>
+
+<div id="carta3">
+
+</div>
+
+<div id="contador3">
+
+10
+
+</div>
+
+</div>
   <script>
     // ========== CARTA 1 ==========
     const carta = `Puede que nos conozcamos desde hace poco, pero quiero decirte que me has caído tan bien que ahora mismo mi mayor miedo es separarme de ti.
@@ -708,6 +977,15 @@ setTimeout(mostrarFase3,900);
 },20);
 
 }
+    function mostrarFase3(){
+
+document.getElementById("fase2").style.display="none";
+
+document.getElementById("fase3").style.display="flex";
+
+crearCorazones();
+
+}
     function efectoFinal() {
       for (let i = 0; i < 60; i++) {
         const estrella = document.createElement('div');
@@ -779,6 +1057,73 @@ p.remove();
 },1800);
 
 }
+
+}
+function crearCorazones(){
+
+setInterval(()=>{
+
+const c=document.createElement("div");
+
+c.innerHTML="❤";
+
+c.style.position="fixed";
+
+c.style.left=Math.random()*window.innerWidth+"px";
+
+c.style.top=window.innerHeight+"px";
+
+c.style.fontSize=(20+Math.random()*35)+"px";
+
+c.style.color="rgba(255,120,160,.8)";
+
+c.style.pointerEvents="none";
+
+c.style.zIndex="999";
+
+document.body.appendChild(c);
+
+c.animate([
+
+{
+
+transform:"translateY(0)";
+
+opacity:0;
+
+},
+
+{
+
+transform:"translateY(-"+(window.innerHeight+150)+"px)";
+
+opacity:1;
+
+},
+
+{
+
+transform:"translateY(-"+(window.innerHeight+250)+"px)";
+
+opacity:0;
+
+}
+
+],{
+
+duration:7000,
+
+easing:"linear"
+
+});
+
+setTimeout(()=>{
+
+c.remove();
+
+},7000);
+
+},350);
 
 }
     // ========== ENTER para ambos inputs ==========
