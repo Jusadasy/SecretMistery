@@ -96,6 +96,7 @@
       margin-top: 15px;
       color: red;
       font-weight: bold;
+      min-height: 30px;
     }
 
     /* ventana carta */
@@ -449,7 +450,7 @@
 
     /* Palabra clave en encantamiento de Minecraft */
     #palabraClave {
-      font-family: 'Minecraft', 'Courier New', monospace;
+      font-family: 'Courier New', monospace;
       font-size: 1.8rem;
       color: #aaffaa;
       text-shadow: 0 0 20px rgba(100, 255, 100, 0.3);
@@ -459,18 +460,7 @@
       padding: 10px 20px;
       border-radius: 15px;
       border: 1px solid rgba(100, 255, 100, 0.2);
-    }
-
-    /* Contador para la fase 3 */
-    #contadorFase3 {
-      position: fixed;
-      bottom: 40px;
-      font-size: 28px;
-      color: #ff6b8a;
-      text-shadow: 0 0 30px rgba(255, 107, 138, 0.5);
-      z-index: 70;
-      display: none;
-      font-weight: bold;
+      text-align: center;
     }
 
     /* ajustes responsivos */
@@ -481,12 +471,6 @@
       #cartaCristal { padding: 25px 20px; }
       #cartaCristal h2 { font-size: 2rem; }
       .rosa { font-size: 50px; }
-    }
-
-    /* Minecraft font fallback */
-    @font-face {
-      font-family: 'Minecraft';
-      src: local('Minecraft'), local('Courier New');
     }
   </style>
 </head>
@@ -547,9 +531,6 @@
       <div id="textoCarta3"></div>
       <div id="contador3">10</div>
     </div>
-
-    <!-- Contador externo para la fase 3 -->
-    <div id="contadorFase3"></div>
   </div>
 
   <script>
@@ -575,12 +556,17 @@ Espero que cada nuevo reto haga tu día un poquito mejor y que, mientras no pued
     function comprobar1() {
       const resp = document.getElementById('respuesta').value.trim().toUpperCase();
       const error = document.getElementById('error');
+      console.log('Respuesta ingresada:', resp);
+      console.log('Respuesta esperada: PERDER');
+      
       if (resp === 'PERDER') {
         error.innerHTML = '';
+        console.log('¡Correcto! Mostrando carta...');
         document.getElementById('ventana').classList.add('visible');
         escribirCarta();
       } else {
         error.innerHTML = '❌ Esa no es la respuesta.';
+        console.log('Respuesta incorrecta');
       }
     }
 
@@ -598,7 +584,7 @@ Espero que cada nuevo reto haga tu día un poquito mejor y que, mientras no pued
         destino.scrollTop = destino.scrollHeight;
         if (indice >= carta.length) {
           clearInterval(efecto);
-          // Reemplazo solicitado
+          // Reemplazo solicitado: clearInterval(efecto); setTimeout(iniciarCuentaAtras2,700);
           setTimeout(iniciarCuentaAtras2, 700);
         }
       }, 35);
@@ -743,6 +729,7 @@ Posdata: Gracias por ser mi amiga después de yo ser una tan mala persona. ;3;`;
 
     function comprobar2() {
       const resp = document.getElementById('respuesta2').value.trim().toUpperCase();
+      console.log('Respuesta fase 2:', resp);
       if (resp === 'SENTIMIENTOS') {
         mostrarSegundaCarta();
       } else {
@@ -833,6 +820,34 @@ Jairo 💖
       }, 1500);
     }
 
+    function crearCorazonesFlotantes() {
+      const emojis = ['❤️', '💕', '💖', '💗', '💓', '💝', '💘'];
+      for (let i = 0; i < 15; i++) {
+        const corazon = document.createElement('div');
+        corazon.className = 'corazon-flotante';
+        corazon.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        corazon.style.left = Math.random() * 100 + '%';
+        corazon.style.animationDuration = (6 + Math.random() * 4) + 's';
+        corazon.style.animationDelay = (Math.random() * 5) + 's';
+        corazon.style.fontSize = (20 + Math.random() * 30) + 'px';
+        document.getElementById('fase3').appendChild(corazon);
+      }
+    }
+
+    function crearParticulasBrillantes() {
+      for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'particula-brillante';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = Math.random() * 100 + '%';
+        p.style.animationDuration = (2 + Math.random() * 2) + 's';
+        p.style.animationDelay = (Math.random() * 3) + 's';
+        p.style.width = (2 + Math.random() * 4) + 'px';
+        p.style.height = p.style.width;
+        document.getElementById('fase3').appendChild(p);
+      }
+    }
+
     function escribirCarta3() {
       const destino = document.getElementById('textoCarta3');
       destino.innerHTML = '';
@@ -895,35 +910,4 @@ Jairo 💖
         p.style.height = '10px';
         p.style.borderRadius = '50%';
         p.style.background = colores[Math.floor(Math.random() * colores.length)];
-        p.style.boxShadow = '0 0 20px ' + colores[Math.floor(Math.random() * colores.length)];
-        p.style.pointerEvents = 'none';
-        p.style.zIndex = '100';
-        
-        const angle = Math.random() * 2 * Math.PI;
-        const distance = 200 + Math.random() * 600;
-        const x = Math.cos(angle) * distance + 'px';
-        const y = Math.sin(angle) * distance + 'px';
-        
-        p.style.transition = 'all 2s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        document.body.appendChild(p);
-        
-        setTimeout(() => {
-          p.style.transform = 'translate(' + x + ', ' + y + ') scale(0)';
-          p.style.opacity = '0';
-        }, 50);
-        
-        setTimeout(() => p.remove(), 2500);
-      }
-      
-      // Mostrar mensaje final
-      setTimeout(() => {
-        const mensajeFinal = document.createElement('div');
-        mensajeFinal.style.position = 'fixed';
-        mensajeFinal.style.top = '50%';
-        mensajeFinal.style.left = '50%';
-        mensajeFinal.style.transform = 'translate(-50%, -50%)';
-        mensajeFinal.style.color = '#ff6b8a';
-        mensajeFinal.style.fontSize = '3rem';
-        mensajeFinal.style.fontFamily = "'Caveat', cursive";
-        mensajeFinal.style.textShadow = '0 0 60px rgba(255, 107, 138, 0.5)';
-        mensaje
+        p.style.boxShadow = '0 0 20px '
