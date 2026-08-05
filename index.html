@@ -257,9 +257,6 @@
 
     /* segunda carta (estilo negro, misma temática) */
     #segundaCarta {
-      <div id="contador2" style="display:none;font-size:32px;text-align:center;margin-top:30px;color:white;">
-10
-</div>
       display: none;
       margin-top: 35px;
       width: 100%;
@@ -313,11 +310,183 @@
       line-height: 1.6;
     }
 
+    /* ========== FASE 3 : ROMÁNTICA ========== */
+    #fase3 {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #1a0000, #3d0000, #1a0000);
+      background-size: 400% 400%;
+      animation: gradientBG 8s ease infinite;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      opacity: 0;
+      transition: opacity 2s;
+      z-index: 60;
+      overflow: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    #fase3.mostrar {
+      display: flex;
+      opacity: 1;
+    }
+
+    /* Rosas en las esquinas */
+    .rosa {
+      position: absolute;
+      font-size: 80px;
+      opacity: 0.6;
+      animation: flotarRosa 6s ease-in-out infinite;
+      z-index: 5;
+      filter: drop-shadow(0 0 20px rgba(255,0,0,0.3));
+    }
+    .rosa:nth-child(1) { top: 20px; left: 20px; }
+    .rosa:nth-child(2) { top: 20px; right: 20px; animation-delay: 1s; }
+    .rosa:nth-child(3) { bottom: 20px; left: 20px; animation-delay: 2s; }
+    .rosa:nth-child(4) { bottom: 20px; right: 20px; animation-delay: 3s; }
+
+    @keyframes flotarRosa {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    /* Corazones flotantes */
+    .corazon-flotante {
+      position: absolute;
+      font-size: 30px;
+      animation: flotarCorazon 8s infinite linear;
+      opacity: 0.6;
+      z-index: 4;
+      pointer-events: none;
+    }
+    @keyframes flotarCorazon {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+    }
+
+    /* Partículas brillantes */
+    .particula-brillante {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #ff6b8a, 0 0 20px #ff6b8a;
+      animation: brillar 3s infinite alternate;
+      z-index: 3;
+      pointer-events: none;
+    }
+    @keyframes brillar {
+      0% { opacity: 0.2; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1.5); }
+    }
+
+    /* Carta de cristal */
+    #cartaCristal {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      border-radius: 30px;
+      padding: 40px 45px;
+      max-width: 650px;
+      width: 85%;
+      box-shadow: 
+        0 0 40px rgba(255, 105, 180, 0.15),
+        inset 0 0 60px rgba(255, 105, 180, 0.05);
+      transform: scale(0.2);
+      transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 10;
+      position: relative;
+      max-height: 70vh;
+      overflow: hidden;
+    }
+    #cartaCristal.mostrar {
+      transform: scale(1);
+    }
+    #cartaCristal h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #ff6b8a;
+      font-family: 'Caveat', cursive;
+      text-shadow: 0 0 30px rgba(255, 107, 138, 0.3);
+      margin-bottom: 20px;
+    }
+    #textoCarta3 {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      white-space: pre-line;
+      color: #f0e0e0;
+      max-height: 40vh;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    #textoCarta3::-webkit-scrollbar {
+      width: 6px;
+    }
+    #textoCarta3::-webkit-scrollbar-thumb {
+      background: #ff6b8a;
+      border-radius: 10px;
+    }
+    #contador3 {
+      display: none;
+      margin-top: 25px;
+      font-size: 32px;
+      text-align: center;
+      font-weight: bold;
+      color: #ff6b8a;
+      text-shadow: 0 0 30px rgba(255, 107, 138, 0.3);
+    }
+
+    /* Palabra clave en encantamiento de Minecraft */
+    #palabraClave {
+      font-family: 'Minecraft', 'Courier New', monospace;
+      font-size: 1.8rem;
+      color: #aaffaa;
+      text-shadow: 0 0 20px rgba(100, 255, 100, 0.3);
+      letter-spacing: 4px;
+      margin-bottom: 15px;
+      background: rgba(0,0,0,0.3);
+      padding: 10px 20px;
+      border-radius: 15px;
+      border: 1px solid rgba(100, 255, 100, 0.2);
+    }
+
+    /* Contador para la fase 3 */
+    #contadorFase3 {
+      position: fixed;
+      bottom: 40px;
+      font-size: 28px;
+      color: #ff6b8a;
+      text-shadow: 0 0 30px rgba(255, 107, 138, 0.5);
+      z-index: 70;
+      display: none;
+      font-weight: bold;
+    }
+
     /* ajustes responsivos */
     @media (max-width: 600px) {
       .misterio-container { padding: 25px 20px; }
       .misterio-container h2 { font-size: 1.8rem; }
       #segundaCarta { padding: 20px; font-size: 1rem; }
+      #cartaCristal { padding: 25px 20px; }
+      #cartaCristal h2 { font-size: 2rem; }
+      .rosa { font-size: 50px; }
+    }
+
+    /* Minecraft font fallback */
+    @font-face {
+      font-family: 'Minecraft';
+      src: local('Minecraft'), local('Courier New');
     }
   </style>
 </head>
@@ -363,7 +532,33 @@
     <div id="binario">01010011 01100101 01101110 01110100 01101001<br>01101101 01101001 01100101 01101110 01110100<br>01101111 01110011</div>
   </div>
 
+  <!-- FASE 3 : Romántica -->
+  <div id="fase3">
+    <!-- Rosas en las esquinas -->
+    <div class="rosa">🌹</div>
+    <div class="rosa">🌹</div>
+    <div class="rosa">🌹</div>
+    <div class="rosa">🌹</div>
+
+    <!-- Carta de cristal -->
+    <div id="cartaCristal">
+      <h2>💖 El Último Misterio 💖</h2>
+      <div id="palabraClave">ᒷꖎ ᔑᒲ𝙹∷</div>
+      <div id="textoCarta3"></div>
+      <div id="contador3">10</div>
+    </div>
+
+    <!-- Contador externo para la fase 3 -->
+    <div id="contadorFase3"></div>
+  </div>
+
   <script>
+    // ========== VARIABLES GLOBALES ==========
+    let efecto = null;
+    let intervaloContador = null;
+    let intervaloContador3 = null;
+    let tiempo = 10;
+
     // ========== CARTA 1 ==========
     const carta = `Puede que nos conozcamos desde hace poco, pero quiero decirte que me has caído tan bien que ahora mismo mi mayor miedo es separarme de ti.
 
@@ -376,9 +571,6 @@ En ella, cada dos días se irán abriendo nuevos misterios que tendrás que reso
 Espero que cada nuevo reto haga tu día un poquito mejor y que, mientras no pueda estar contigo, no te olvides de mí. ❤️`;
 
     let indice = 0;
-    let tiempo = 10;
-    let intervaloEscritura = null;
-    let intervaloContador = null;
 
     function comprobar1() {
       const resp = document.getElementById('respuesta').value.trim().toUpperCase();
@@ -396,19 +588,23 @@ Espero que cada nuevo reto haga tu día un poquito mejor y que, mientras no pued
       const destino = document.getElementById('textoCarta');
       destino.innerHTML = '';
       indice = 0;
-      if (intervaloEscritura) clearInterval(intervaloEscritura);
-      intervaloEscritura = setInterval(() => {
+      
+      // Limpiar intervalo anterior
+      if (efecto) clearInterval(efecto);
+      
+      efecto = setInterval(() => {
         destino.innerHTML += carta.charAt(indice);
         indice++;
         destino.scrollTop = destino.scrollHeight;
         if (indice >= carta.length) {
-          clearInterval(intervaloEscritura);
-          setTimeout(iniciarCuentaAtras, 500);
+          clearInterval(efecto);
+          // Reemplazo solicitado
+          setTimeout(iniciarCuentaAtras2, 700);
         }
       }, 35);
     }
 
-    function iniciarCuentaAtras() {
+    function iniciarCuentaAtras2() {
       const contador = document.getElementById('contador');
       contador.style.display = 'block';
       tiempo = 10;
@@ -472,7 +668,7 @@ Espero que cada nuevo reto haga tu día un poquito mejor y que, mientras no pued
       }, 1200);
     }
 
-    // ========== MATRIX RAIN (letras y símbolos cayendo) ==========
+    // ========== MATRIX RAIN ==========
     let matrixInterval = null;
 
     function iniciarMatrix() {
@@ -501,12 +697,10 @@ Espero que cada nuevo reto haga tu día un poquito mejor y que, mientras no pued
           const x = i * 18 + 9;
           const y = gotas[i] * 18;
 
-          // degradado de verde
           const brillo = Math.floor(150 + Math.random() * 105);
           ctx.fillStyle = `rgba(0, ${brillo}, 100, 0.9)`;
           ctx.fillText(char, x, y);
 
-          // gota principal más brillante
           if (Math.random() > 0.975) {
             ctx.fillStyle = '#b0ffc0';
             ctx.fillText(char, x, y);
@@ -527,14 +721,13 @@ Espero que cada nuevo reto haga tu día un poquito mejor y que, mientras no pued
       window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        // reiniciar gotas
         for (let i = 0; i < columnas; i++) {
           gotas[i] = Math.floor(Math.random() * -canvas.height);
         }
       });
     }
 
-    // ========== SEGUNDA CARTA (temática unificada, color negro) ==========
+    // ========== SEGUNDA CARTA ==========
     const segundaCarta = `¡Felicidades! Pudiste llegar aquí, ¿no habrás usado ninguna IA, no? ¡JAJAJA!
 
 Bueno, no pasa nada, sabía que lo lograrías. Eres una persona maravillosa e inteligente, y por no hablar de otras cualidades que tienes, las cuales también destacan por encima de las de muchas otras personas. <3
@@ -589,22 +782,148 @@ Posdata: Gracias por ser mi amiga después de yo ser una tan mala persona. ;3;`;
         document.body.appendChild(estrella);
         setTimeout(() => { estrella.style.opacity = '1'; }, 50 + i * 10);
       }
+      
+      // Después de 3 segundos, mostrar la fase 3
+      setTimeout(() => {
+        mostrarFase3();
+      }, 3000);
     }
 
-    // ========== ENTER para ambos inputs ==========
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        const active = document.activeElement;
-        if (active && active.id === 'respuesta') comprobar1();
-        if (active && active.id === 'respuesta2') comprobar2();
-      }
-    });
+    // ========== FASE 3 : ROMÁNTICA ==========
+    const carta3 = `💕 Querida amiga,
 
-    // reiniciar contadores si se recarga
-    window.addEventListener('load', () => {
-      // pequeño fix para que el input tenga foco
-      document.getElementById('respuesta').focus();
-    });
-  </script>
-</body>
-</html>
+Esta es la última carta que recibirás por ahora. Han sido unos días maravillosos compartiendo este pequeño juego contigo. 
+
+Cada vez que resolvías un misterio, mi corazón latía un poco más fuerte, sabiendo que estabas ahí, dedicando tu tiempo a algo que hice especialmente para ti.
+
+Quiero que sepas que, aunque estemos separados por la distancia o por las circunstancias, siempre llevaré un pedacito de ti conmigo.
+
+Eres una persona increíble, única y especial. No dejes que nadie te diga lo contrario.
+
+Te espero con los brazos abiertos cuando todo esto pase.
+
+Con todo mi cariño,
+Jairo 💖
+
+"La distancia no es nada cuando el corazón quiere estar cerca"`;
+
+    function mostrarFase3() {
+      // Ocultar fase 2
+      const fase2 = document.getElementById('fase2');
+      fase2.style.opacity = '0';
+      setTimeout(() => {
+        fase2.style.display = 'none';
+        
+        // Mostrar fase 3
+        const fase3 = document.getElementById('fase3');
+        fase3.classList.add('mostrar');
+        
+        // Iniciar corazones flotantes
+        crearCorazonesFlotantes();
+        
+        // Iniciar partículas brillantes
+        crearParticulasBrillantes();
+        
+        // Mostrar carta de cristal
+        const cartaCristal = document.getElementById('cartaCristal');
+        setTimeout(() => {
+          cartaCristal.classList.add('mostrar');
+          escribirCarta3();
+        }, 500);
+      }, 1500);
+    }
+
+    function escribirCarta3() {
+      const destino = document.getElementById('textoCarta3');
+      destino.innerHTML = '';
+      let i = 0;
+      const escribir = setInterval(() => {
+        destino.innerHTML += carta3.charAt(i);
+        i++;
+        destino.scrollTop = destino.scrollHeight;
+        if (i >= carta3.length) {
+          clearInterval(escribir);
+          setTimeout(iniciarCuentaAtras3, 700);
+        }
+      }, 30);
+    }
+
+    function iniciarCuentaAtras3() {
+      const contador = document.getElementById('contador3');
+      contador.style.display = 'block';
+      let tiempo3 = 10;
+      contador.innerHTML = tiempo3;
+      
+      if (intervaloContador3) clearInterval(intervaloContador3);
+      intervaloContador3 = setInterval(() => {
+        tiempo3--;
+        contador.innerHTML = tiempo3;
+        if (tiempo3 <= 0) {
+          clearInterval(intervaloContador3);
+          cerrarCartaCristal();
+        }
+      }, 1000);
+    }
+
+    function cerrarCartaCristal() {
+      const carta = document.getElementById('cartaCristal');
+      let escala = 1;
+      let opacidad = 1;
+      const anim = setInterval(() => {
+        escala -= 0.025;
+        opacidad -= 0.025;
+        carta.style.transform = 'scale(' + escala + ')';
+        carta.style.opacity = opacidad;
+        if (escala <= 0) {
+          clearInterval(anim);
+          carta.style.display = 'none';
+          // Efecto final de cierre
+          crearExplosionFinal();
+        }
+      }, 20);
+    }
+
+    function crearExplosionFinal() {
+      // Crear muchas partículas de colores
+      const colores = ['#ff6b8a', '#ff3366', '#ff1493', '#ff69b4', '#ff4da6', '#ffffff'];
+      for (let i = 0; i < 200; i++) {
+        const p = document.createElement('div');
+        p.style.position = 'fixed';
+        p.style.left = window.innerWidth / 2 + 'px';
+        p.style.top = window.innerHeight / 2 + 'px';
+        p.style.width = '10px';
+        p.style.height = '10px';
+        p.style.borderRadius = '50%';
+        p.style.background = colores[Math.floor(Math.random() * colores.length)];
+        p.style.boxShadow = '0 0 20px ' + colores[Math.floor(Math.random() * colores.length)];
+        p.style.pointerEvents = 'none';
+        p.style.zIndex = '100';
+        
+        const angle = Math.random() * 2 * Math.PI;
+        const distance = 200 + Math.random() * 600;
+        const x = Math.cos(angle) * distance + 'px';
+        const y = Math.sin(angle) * distance + 'px';
+        
+        p.style.transition = 'all 2s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        document.body.appendChild(p);
+        
+        setTimeout(() => {
+          p.style.transform = 'translate(' + x + ', ' + y + ') scale(0)';
+          p.style.opacity = '0';
+        }, 50);
+        
+        setTimeout(() => p.remove(), 2500);
+      }
+      
+      // Mostrar mensaje final
+      setTimeout(() => {
+        const mensajeFinal = document.createElement('div');
+        mensajeFinal.style.position = 'fixed';
+        mensajeFinal.style.top = '50%';
+        mensajeFinal.style.left = '50%';
+        mensajeFinal.style.transform = 'translate(-50%, -50%)';
+        mensajeFinal.style.color = '#ff6b8a';
+        mensajeFinal.style.fontSize = '3rem';
+        mensajeFinal.style.fontFamily = "'Caveat', cursive";
+        mensajeFinal.style.textShadow = '0 0 60px rgba(255, 107, 138, 0.5)';
+        mensaje
