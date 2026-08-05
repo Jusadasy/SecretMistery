@@ -1,1 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un pequeño misterio...</title>
 
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#ffffff;
+    overflow:hidden;
+}
+
+/* Decoraciones */
+
+.decoracion{
+    position:absolute;
+    font-size:40px;
+    opacity:.25;
+    animation:flotar 6s ease-in-out infinite;
+}
+
+.decoracion:nth-child(1){
+    top:5%;
+    left:7%;
+}
+
+.decoracion:nth-child(2){
+    top:15%;
+    right:8%;
+}
+
+.decoracion:nth-child(3){
+    bottom:8%;
+    left:10%;
+}
+
+.decoracion:nth-child(4){
+    bottom:15%;
+    right:12%;
+}
+
+.decoracion:nth-child(5){
+    top:45%;
+    left:3%;
+}
+
+.decoracion:nth-child(6){
+    top:55%;
+    right:4%;
+}
+
+@keyframes flotar{
+    50%{
+        transform:translateY(-15px);
+    }
+}
+
+/* Pantalla principal */
+
+.contenedor{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    text-align:center;
+}
+
+h1{
+    color:#ff4d9a;
+    margin-bottom:25px;
+    font-size:42px;
+}
+
+.descripcion{
+    color:#666;
+    margin-bottom:35px;
+}
+
+.morse{
+    font-size:34px;
+    letter-spacing:8px;
+    color:#333;
+    margin-bottom:40px;
+}
+
+input{
+    width:280px;
+    padding:14px;
+    border-radius:12px;
+    border:2px solid #ff9cc9;
+    outline:none;
+    font-size:18px;
+    text-align:center;
+    transition:.3s;
+}
+
+input:focus{
+    border-color:#ff4d9a;
+}
+
+button{
+    margin-top:20px;
+    background:#ff4d9a;
+    color:white;
+    border:none;
+    padding:13px 35px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:17px;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+    background:#ff3188;
+}
+
+#error{
+    margin-top:15px;
+    color:red;
+    font-weight:bold;
+}
+
+/* Ventana */
+
+#ventana{
+    position:fixed;
+    inset:0;
+    background:rgba(255,255,255,.97);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.7s;
+}
+
+#ventana.activa{
+    opacity:1;
+    visibility:visible;
+}
+
+/* Carta */
+
+.carta{
+
+    width:85%;
+    max-width:800px;
+
+    background:white;
+
+    border:4px solid #ffb2d3;
+
+    border-radius:25px;
+
+    padding:45px;
+
+    box-shadow:0 20px 40px rgba(255,105,180,.25);
+
+    transform:scale(.3) rotate(-8deg);
+
+    transition:1s;
+
+}
+
+#ventana.activa .carta{
+
+    transform:scale(1) rotate(0deg);
+
+}
+
+.carta h2{
+
+    text-align:center;
+    color:#ff4d9a;
+    margin-bottom:30px;
+    font-size:34px;
+
+}
+
+#textoCarta{
+
+    color:#555;
+
+    font-size:20px;
+
+    line-height:1.9;
+
+    white-space:pre-line;
+
+}
+
+#continuar{
+
+    display:none;
+
+    margin:35px auto 0;
+
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="decoracion">🌸</div>
+<div class="decoracion">💗</div>
+<div class="decoracion">🌸</div>
+<div class="decoracion">💕</div>
+<div class="decoracion">🌸</div>
+<div class="decoracion">💗</div>
+
+<div class="contenedor">
+
+<h1>Descifra el mensaje</h1>
+
+<p class="descripcion">
+Solo una persona podrá descubrir lo que esconde esta página...
+</p>
+
+<div class="morse">
+
+.--. . .-. -.. . .-.
+
+</div>
+
+<input
+id="respuesta"
+placeholder="Escribe el texto descifrado">
+
+<button onclick="comprobar()">
+Descifrar
+</button>
+
+<div id="error"></div>
+
+</div>
+
+<div id="ventana">
+
+<div class="carta">
+
+<h2>💌 Para ti</h2>
+
+<p id="textoCarta"></p>
+
+<button id="continuar">
+Próximamente...
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+const carta=`Puede que nos conozcamos desde hace poco, pero quiero decirte que me has caído tan bien que ahora mismo mi mayor miedo es separarme de ti.
+
+El solo hecho de pensar que voy a tener que pasar unas semanas sin hablar contigo por culpa de mi familia hace que me sienta muy mal y que mi autoestima baje muchísimo.
+
+Por eso te hice esta página web.
+
+En ella, cada dos días se irán abriendo nuevos misterios que tendrás que resolver poco a poco.
+
+Espero que cada nuevo reto haga tu día un poquito mejor y que, mientras no pueda estar contigo, no te olvides de mí. :)
+
+❤️`;
+
+function comprobar(){
+
+let texto=document.getElementById("respuesta").value.trim().toUpperCase();
+
+if(texto==="PERDER"){
+
+document.getElementById("ventana").classList.add("activa");
+
+escribirCarta();
+
+}else{
+
+document.getElementById("error").innerHTML="❌ Esa no es la respuesta.";
+
+}
+
+}
+
+let i=0;
+
+function escribirCarta(){
+
+const destino=document.getElementById("textoCarta");
+
+destino.innerHTML="";
+
+i=0;
+
+let intervalo=setInterval(()=>{
+
+destino.innerHTML+=carta.charAt(i);
+
+i++;
+
+if(i>=carta.length){
+
+clearInterval(intervalo);
+
+document.getElementById("continuar").style.display="block";
+
+}
+
+},35);
+
+}
+
+</script>
+
+</body>
+</html>
