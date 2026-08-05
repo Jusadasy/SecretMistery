@@ -726,7 +726,61 @@ setTimeout(mostrarFase3,900);
         setTimeout(() => { estrella.style.opacity = '1'; }, 50 + i * 10);
       }
     }
+function crearExplosionVerde(){
 
+for(let i=0;i<90;i++){
+
+const p=document.createElement("div");
+
+p.style.position="fixed";
+
+p.style.left=(window.innerWidth/2)+"px";
+
+p.style.top=(window.innerHeight/2)+"px";
+
+p.style.width="6px";
+
+p.style.height="6px";
+
+p.style.borderRadius="50%";
+
+p.style.background="#00ffa3";
+
+p.style.boxShadow="0 0 15px #00ffa3";
+
+p.style.pointerEvents="none";
+
+p.style.zIndex="999";
+
+document.body.appendChild(p);
+
+const x=(Math.random()-0.5)*900;
+
+const y=(Math.random()-0.5)*900;
+
+p.animate([
+
+{transform:"translate(0,0) scale(1)",opacity:1},
+
+{transform:`translate(${x}px,${y}px) scale(0)`,opacity:0}
+
+],{
+
+duration:1800,
+
+easing:"ease-out"
+
+});
+
+setTimeout(()=>{
+
+p.remove();
+
+},1800);
+
+}
+
+}
     // ========== ENTER para ambos inputs ==========
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') {
