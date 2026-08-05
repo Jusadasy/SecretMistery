@@ -610,21 +610,104 @@ Posdata: Gracias por ser mi amiga después de yo ser una tan mala persona. ;3;`;
       }
     }
 
-    function mostrarSegundaCarta() {
-      const cartaDiv = document.getElementById('segundaCarta');
-      cartaDiv.style.display = 'block';
-      cartaDiv.innerHTML = '';
-      let i = 0;
-      const escribir = setInterval(() => {
-        cartaDiv.innerHTML += segundaCarta.charAt(i);
-        i++;
-        if (i >= segundaCarta.length) {
-          clearInterval(escribir);
-          efectoFinal();
-        }
-      }, 30);
-    }
+   function mostrarSegundaCarta(){
 
+const cartaDiv=document.getElementById("segundaCarta");
+
+cartaDiv.style.display="block";
+
+cartaDiv.innerHTML="";
+
+let i=0;
+
+const escribir=setInterval(()=>{
+
+cartaDiv.innerHTML+=segundaCarta.charAt(i);
+
+cartaDiv.scrollTop=cartaDiv.scrollHeight;
+
+i++;
+
+if(i>=segundaCarta.length){
+
+clearInterval(escribir);
+
+setTimeout(iniciarCuentaAtras2,700);
+
+}
+
+},30);
+
+}
+function iniciarCuentaAtras2(){
+
+let tiempo=10;
+
+const contador=document.getElementById("contador2");
+
+contador.style.display="block";
+
+contador.innerHTML=tiempo;
+
+const intervalo=setInterval(()=>{
+
+tiempo--;
+
+contador.innerHTML=tiempo;
+
+if(tiempo<=0){
+
+clearInterval(intervalo);
+
+cerrarSegundaCarta();
+
+}
+
+},1000);
+
+}
+
+function cerrarSegundaCarta(){
+
+const carta=document.getElementById("segundaCarta");
+
+const contador=document.getElementById("contador2");
+
+let escala=1;
+
+let opacidad=1;
+
+const animacion=setInterval(()=>{
+
+escala-=0.03;
+
+opacidad-=0.03;
+
+carta.style.transform=`scale(${escala})`;
+
+carta.style.opacity=opacidad;
+
+contador.style.transform=`scale(${escala})`;
+
+contador.style.opacity=opacidad;
+
+if(escala<=0){
+
+clearInterval(animacion);
+
+carta.style.display="none";
+
+contador.style.display="none";
+
+crearExplosionVerde();
+
+setTimeout(mostrarFase3,900);
+
+}
+
+},20);
+
+}
     function efectoFinal() {
       for (let i = 0; i < 60; i++) {
         const estrella = document.createElement('div');
