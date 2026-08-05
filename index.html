@@ -1,586 +1,368 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Los Misterios</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-body{
-
-background:white;
-
-font-family:Poppins,sans-serif;
-
-overflow:hidden;
-
-transition:2s;
-
-}
-
-/*==============================*/
-/* DECORACIONES */
-/*==============================*/
-
-.flor{
-
-position:absolute;
-
-font-size:40px;
-
-opacity:.25;
-
-animation:flotar 7s infinite ease-in-out;
-
-pointer-events:none;
-
-}
-
-.flor:nth-child(1){
-
-top:5%;
-left:5%;
-
-}
-
-.flor:nth-child(2){
-
-top:12%;
-right:8%;
-
-}
-
-.flor:nth-child(3){
-
-bottom:8%;
-left:12%;
-
-}
-
-.flor:nth-child(4){
-
-bottom:10%;
-right:8%;
-
-}
-
-.flor:nth-child(5){
-
-top:45%;
-left:2%;
-
-}
-
-.flor:nth-child(6){
-
-top:60%;
-right:3%;
-
-}
-
-@keyframes flotar{
-
-50%{
-
-transform:translateY(-20px);
-
-}
-
-}
-
-/*==============================*/
-/* PRIMERA PANTALLA */
-/*==============================*/
-
-#inicio{
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
-align-items:center;
-
-height:100vh;
-
-transition:1s;
-
-}
-
-h1{
-
-font-size:45px;
-
-color:#ff4da6;
-
-margin-bottom:20px;
-
-}
-
-.sub{
-
-color:#666;
-
-margin-bottom:35px;
-
-}
-
-#morse{
-
-font-size:34px;
-
-letter-spacing:10px;
-
-margin-bottom:35px;
-
-}
-
-input{
-
-width:300px;
-
-padding:14px;
-
-border-radius:12px;
-
-border:2px solid #ff9ac8;
-
-font-size:18px;
-
-text-align:center;
-
-outline:none;
-
-transition:.3s;
-
-}
-
-input:focus{
-
-border-color:#ff4da6;
-
-}
-
-button{
-
-margin-top:20px;
-
-padding:13px 35px;
-
-font-size:18px;
-
-border:none;
-
-border-radius:12px;
-
-cursor:pointer;
-
-background:#ff4da6;
-
-color:white;
-
-transition:.3s;
-
-}
-
-button:hover{
-
-transform:scale(1.05);
-
-}
-
-#error{
-
-margin-top:15px;
-
-color:red;
-
-font-weight:bold;
-
-}
-
-/*==============================*/
-/* VENTANA */
-/*==============================*/
-
-#ventana{
-
-position:fixed;
-
-inset:0;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-background:rgba(255,255,255,.97);
-
-opacity:0;
-
-visibility:hidden;
-
-transition:1s;
-
-}
-
-#ventana.visible{
-
-opacity:1;
-
-visibility:visible;
-
-}
-
-/*==============================*/
-/* CARTA */
-/*==============================*/
-
-.carta{
-
-width:75%;
-
-max-width:650px;
-
-background:white;
-
-border-radius:25px;
-
-border:4px solid #ffbdd9;
-
-padding:35px;
-
-box-shadow:0 0 45px rgba(255,105,180,.25);
-
-transform:scale(.2);
-
-transition:1s;
-
-max-height:80vh;
-
-overflow:hidden;
-
-}
-
-#ventana.visible .carta{
-
-transform:scale(1);
-
-}
-
-.carta h2{
-
-text-align:center;
-
-font-size:38px;
-
-color:#ff4da6;
-
-margin-bottom:25px;
-
-font-family:Caveat,cursive;
-
-}
-
-#textoCarta{
-
-font-size:20px;
-
-line-height:1.8;
-
-white-space:pre-line;
-
-color:#555;
-
-min-height:auto;
-
-max-height:50vh;
-
-overflow-y:auto;
-
-padding-right:8px;
-
-}
-
-/*==============================*/
-/* CONTADOR */
-/*==============================*/
-
-#contador{
-
-display:none;
-
-margin-top:30px;
-
-font-size:28px;
-
-text-align:center;
-
-font-weight:bold;
-
-color:black;
-
-}
-
-/*==============================*/
-/* PARTICULAS */
-/*==============================*/
-
-.particula{
-
-position:absolute;
-
-width:8px;
-
-height:8px;
-
-border-radius:50%;
-
-pointer-events:none;
-
-animation:explosion 1.8s forwards;
-
-}
-
-@keyframes explosion{
-
-0%{
-
-opacity:1;
-
-transform:translate(0,0) scale(1);
-
-}
-
-100%{
-
-opacity:0;
-
-transform:translate(var(--x),var(--y)) scale(0);
-
-}
-
-}
-
-/*==============================*/
-/* SEGUNDA PARTE */
-/*==============================*/
-
-#fase2{
-
-display:none;
-
-position:fixed;
-
-inset:0;
-
-background:black;
-
-color:white;
-
-justify-content:center;
-
-align-items:center;
-
-flex-direction:column;
-
-transition:2s;
-
-}
-
-#binario{
-
-position:absolute;
-
-bottom:20px;
-
-right:20px;
-
-font-size:14px;
-
-font-family:monospace;
-
-color:#00ff95;
-
-opacity:.8;
-
-text-align:right;
-
-}
-
-#fase2 h2{
-
-font-size:40px;
-
-margin-bottom:25px;
-
-}
-
-#fase2 input{
-
-background:#111;
-
-color:white;
-
-border:2px solid hotpink;
-
-}
-
-#fase2 button{
-
-background:#ff4da6;
-
-}
-
-#segundaCarta{
-
-display:none;
-
-margin-top:50px;
-
-width:80%;
-
-max-width:900px;
-
-background:#111;
-
-padding:40px;
-
-border-radius:20px;
-
-border:2px solid hotpink;
-
-box-shadow:0 0 25px hotpink;
-
-font-size:20px;
-
-line-height:1.8;
-
-white-space:pre-line;
-
-}
-
-canvas{
-
-position:fixed;
-
-inset:0;
-
-pointer-events:none;
-
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Los Misterios · Renacido</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: white;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      transition: background 2s;
+    }
+    /* 🌸 flores decorativas */
+    .flor {
+      position: absolute;
+      font-size: 40px;
+      opacity: 0.2;
+      animation: flotar 7s infinite ease-in-out;
+      pointer-events: none;
+      transition: opacity 2s;
+      z-index: 1;
+    }
+    .flor:nth-child(1) { top: 5%; left: 5%; }
+    .flor:nth-child(2) { top: 12%; right: 8%; }
+    .flor:nth-child(3) { bottom: 8%; left: 12%; }
+    .flor:nth-child(4) { bottom: 10%; right: 8%; }
+    .flor:nth-child(5) { top: 45%; left: 2%; }
+    .flor:nth-child(6) { top: 60%; right: 3%; }
+
+    @keyframes flotar {
+      50% { transform: translateY(-20px); }
+    }
+
+    /* pantalla 1 */
+    #inicio {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      transition: opacity 1.5s;
+      position: relative;
+      z-index: 10;
+    }
+    h1 {
+      font-size: 45px;
+      color: #ff4da6;
+      margin-bottom: 20px;
+    }
+    .sub {
+      color: #666;
+      margin-bottom: 35px;
+    }
+    #morse {
+      font-size: 34px;
+      letter-spacing: 10px;
+      margin-bottom: 35px;
+    }
+    input {
+      width: 300px;
+      padding: 14px;
+      border-radius: 12px;
+      border: 2px solid #ff9ac8;
+      font-size: 18px;
+      text-align: center;
+      outline: none;
+      transition: 0.3s;
+    }
+    input:focus {
+      border-color: #ff4da6;
+    }
+    button {
+      margin-top: 20px;
+      padding: 13px 35px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      background: #ff4da6;
+      color: white;
+      transition: 0.3s;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    #error {
+      margin-top: 15px;
+      color: red;
+      font-weight: bold;
+    }
+
+    /* ventana carta */
+    #ventana {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255,255,255,0.97);
+      opacity: 0;
+      visibility: hidden;
+      transition: 1s;
+      z-index: 20;
+    }
+    #ventana.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .carta {
+      width: 75%;
+      max-width: 650px;
+      background: white;
+      border-radius: 25px;
+      border: 4px solid #ffbdd9;
+      padding: 35px;
+      box-shadow: 0 0 45px rgba(255,105,180,0.25);
+      transform: scale(0.2);
+      transition: 1s;
+      max-height: 80vh;
+      overflow: hidden;
+    }
+    #ventana.visible .carta {
+      transform: scale(1);
+    }
+    .carta h2 {
+      text-align: center;
+      font-size: 38px;
+      color: #ff4da6;
+      margin-bottom: 25px;
+      font-family: 'Caveat', cursive;
+    }
+    #textoCarta {
+      font-size: 20px;
+      line-height: 1.8;
+      white-space: pre-line;
+      color: #555;
+      min-height: auto;
+      max-height: 50vh;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+    #contador {
+      display: none;
+      margin-top: 30px;
+      font-size: 28px;
+      text-align: center;
+      font-weight: bold;
+      color: black;
+    }
+
+    /* partículas */
+    .particula {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: explosion 1.8s forwards;
+      z-index: 30;
+    }
+    @keyframes explosion {
+      0% { opacity: 1; transform: translate(0,0) scale(1); }
+      100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(0); }
+    }
+
+    /* ========== FASE 2 : MATRIX + NEGRO ========== */
+    #fase2 {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #0b0b0b;
+      color: #eee;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      transition: opacity 2s;
+      opacity: 0;
+      z-index: 40;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+    #fase2.mostrar {
+      display: flex;
+      opacity: 1;
+    }
+
+    /* contenedor del misterio */
+    .misterio-container {
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      padding: 40px 50px;
+      border-radius: 40px;
+      border: 1px solid #00ffa3;
+      box-shadow: 0 0 60px rgba(0, 255, 163, 0.15);
+      max-width: 650px;
+      width: 85%;
+      text-align: center;
+      z-index: 10;
+      position: relative;
+    }
+    .misterio-container h2 {
+      font-size: 2.2rem;
+      font-weight: 400;
+      letter-spacing: 2px;
+      color: #00ffa3;
+      text-shadow: 0 0 15px #00ffa3;
+      margin-bottom: 15px;
+      font-family: 'Caveat', cursive;
+    }
+    .misterio-container p {
+      color: #b0b0b0;
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+    }
+    .misterio-container input {
+      width: 100%;
+      padding: 16px;
+      border-radius: 50px;
+      border: 2px solid #00ffa3;
+      background: #141414;
+      color: white;
+      font-size: 1.2rem;
+      text-align: center;
+      outline: none;
+      transition: 0.3s;
+    }
+    .misterio-container input:focus {
+      border-color: #ff4da6;
+      box-shadow: 0 0 25px #ff4da6;
+    }
+    .misterio-container button {
+      margin-top: 25px;
+      padding: 14px 45px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      background: #00ffa3;
+      color: #0b0b0b;
+      font-weight: 600;
+      transition: 0.3s;
+      letter-spacing: 1px;
+    }
+    .misterio-container button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #00ffa3;
+    }
+
+    /* segunda carta (estilo negro, misma temática) */
+    #segundaCarta {
+      display: none;
+      margin-top: 35px;
+      width: 100%;
+      max-width: 700px;
+      background: #0f0f0f;
+      padding: 30px 35px;
+      border-radius: 30px;
+      border: 1px solid #00ffa3;
+      box-shadow: 0 0 40px rgba(0, 255, 163, 0.08);
+      font-size: 1.1rem;
+      line-height: 1.9;
+      white-space: pre-line;
+      color: #d0d0d0;
+      text-align: left;
+      max-height: 55vh;
+      overflow-y: auto;
+      font-family: 'Poppins', sans-serif;
+      transition: 0.5s;
+      z-index: 10;
+      position: relative;
+    }
+    #segundaCarta::-webkit-scrollbar {
+      width: 6px;
+    }
+    #segundaCarta::-webkit-scrollbar-thumb {
+      background: #00ffa3;
+      border-radius: 10px;
+    }
+
+    /* contenedor de la lluvia matrix */
+    #matrix-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
+    /* binario esquina */
+    #binario {
+      position: absolute;
+      bottom: 20px;
+      right: 25px;
+      font-size: 13px;
+      font-family: 'Courier New', monospace;
+      color: #00ff95;
+      opacity: 0.5;
+      text-align: right;
+      z-index: 5;
+      letter-spacing: 1px;
+      line-height: 1.6;
+    }
+
+    /* ajustes responsivos */
+    @media (max-width: 600px) {
+      .misterio-container { padding: 25px 20px; }
+      .misterio-container h2 { font-size: 1.8rem; }
+      #segundaCarta { padding: 20px; font-size: 1rem; }
+    }
+  </style>
 </head>
-
 <body>
 
-<canvas id="canvas"></canvas>
+  <!-- 🌸 decoración -->
+  <div class="flor">🌸</div>
+  <div class="flor">💕</div>
+  <div class="flor">🌸</div>
+  <div class="flor">💗</div>
+  <div class="flor">🌸</div>
+  <div class="flor">💕</div>
 
-<div class="flor">🌸</div>
-<div class="flor">💕</div>
-<div class="flor">🌸</div>
-<div class="flor">💗</div>
-<div class="flor">🌸</div>
-<div class="flor">💕</div>
+  <!-- fase 1 -->
+  <div id="inicio">
+    <h1>Descifra el mensaje</h1>
+    <p class="sub">Solo una persona podrá descubrir este pequeño misterio...</p>
+    <div id="morse">.--. . .-. -.. . .-.</div>
+    <input id="respuesta" placeholder="Escribe el texto" autofocus>
+    <button onclick="comprobar1()">Descifrar</button>
+    <div id="error"></div>
+  </div>
 
-<div id="inicio">
+  <!-- carta 1 -->
+  <div id="ventana">
+    <div class="carta">
+      <h2>💌 Para ti</h2>
+      <p id="textoCarta"></p>
+      <div id="contador">10</div>
+    </div>
+  </div>
 
-<h1>Descifra el mensaje</h1>
+  <!-- FASE 2 : Matrix + carta negra -->
+  <div id="fase2">
+    <canvas id="matrix-canvas"></canvas>
+    <div class="misterio-container">
+      <h2>✦ nuevo misterio ✦</h2>
+      <p>Una palabra guarda el siguiente mensaje</p>
+      <input id="respuesta2" placeholder="Escribe la palabra clave">
+      <button onclick="comprobar2()">Desbloquear</button>
+      <div id="segundaCarta"></div>
+    </div>
+    <div id="binario">01010011 01100101 01101110 01110100 01101001<br>01101101 01101001 01100101 01101110 01110100<br>01101111 01110011</div>
+  </div>
 
-<p class="sub">
-Solo una persona podrá descubrir este pequeño misterio...
-</p>
-
-<div id="morse">
-
-.--. . .-. -.. . .-.
-
-</div>
-
-<input
-id="respuesta"
-placeholder="Escribe el texto">
-
-<button onclick="comprobar1()">
-
-Descifrar
-
-</button>
-
-<div id="error"></div>
-
-</div>
-
-<div id="ventana">
-
-<div class="carta">
-
-<h2>💌 Para ti</h2>
-
-<p id="textoCarta"></p>
-
-<div id="contador">
-
-10
-
-</div>
-
-</div>
-
-</div>
-
-<div id="fase2">
-
-<h2>Nuevo misterio</h2>
-
-<input
-id="respuesta2"
-placeholder="Nueva palabra">
-
-<button onclick="comprobar2()">
-
-Desbloquear
-
-</button>
-
-<div id="segundaCarta">
-
-Aquí aparecerá la segunda carta.
-
-</div>
-
-<div id="binario">
-
-01010011 01100101 01101110 01110100 01101001<br>
-01101101 01101001 01100101 01101110 01110100<br>
-01101111 01110011
-
-</div>
-
-</div>
-
-<script>
-
-const carta=`Puede que nos conozcamos desde hace poco, pero quiero decirte que me has caído tan bien que ahora mismo mi mayor miedo es separarme de ti.
+  <script>
+    // ========== CARTA 1 ==========
+    const carta = `Puede que nos conozcamos desde hace poco, pero quiero decirte que me has caído tan bien que ahora mismo mi mayor miedo es separarme de ti.
 
 El solo hecho de pensar que voy a tener que pasar unas semanas sin hablar contigo por culpa de mi familia hace que me sienta muy mal y que mi autoestima baje muchísimo.
 
@@ -590,418 +372,236 @@ En ella, cada dos días se irán abriendo nuevos misterios que tendrás que reso
 
 Espero que cada nuevo reto haga tu día un poquito mejor y que, mientras no pueda estar contigo, no te olvides de mí. ❤️`;
 
-let indice=0;
-let tiempo=10;
-function comprobar1(){
-
-const respuesta=document.getElementById("respuesta").value.trim().toUpperCase();
-
-if(respuesta==="PERDER"){
-
-document.getElementById("error").innerHTML="";
-
-document.getElementById("ventana").classList.add("visible");
-
-escribirCarta();
-
-}else{
-
-document.getElementById("error").innerHTML="❌ Esa no es la respuesta.";
-
-}
-
-}
-
-function escribirCarta(){
-
-const destino=document.getElementById("textoCarta");
-
-destino.innerHTML="";
-
-indice=0;
-
-let escribir=setInterval(()=>{
-
-destino.innerHTML+=carta.charAt(indice);
-
-indice++;
-
-destino.scrollTop=destino.scrollHeight;
-
-if(indice>=carta.length){
-
-clearInterval(escribir);
-
-setTimeout(iniciarCuentaAtras,500);
-
-}
-
-},35);
-
-}
-
-function iniciarCuentaAtras(){
-
-const contador=document.getElementById("contador");
-
-contador.style.display="block";
-
-tiempo=10;
-
-contador.innerHTML=tiempo;
-
-let reloj=setInterval(()=>{
-
-tiempo--;
-
-contador.innerHTML=tiempo;
-
-if(tiempo<=0){
-
-clearInterval(reloj);
-
-cerrarCarta();
-
-}
-
-},1000);
-
-}
-
-function cerrarCarta(){
-
-const carta=document.querySelector(".carta");
-
-let escala=1;
-
-let opacidad=1;
-
-let animacion=setInterval(()=>{
-
-escala-=0.03;
-
-opacidad-=0.03;
-
-carta.style.transform="scale("+escala+")";
-
-carta.style.opacity=opacidad;
-
-if(escala<=0){
-
-clearInterval(animacion);
-
-document.getElementById("ventana").style.display="none";
-
-crearParticulas();
-
-setTimeout(cambiarFaseOscura,800);
-
-}
-
-},20);
-
-}
-
-function crearParticulas(){
-
-for(let i=0;i<150;i++){
-
-const p=document.createElement("div");
-
-p.className="particula";
-
-p.style.left=(window.innerWidth/2)+"px";
-
-p.style.top=(window.innerHeight/2)+"px";
-
-let color=Math.random()>0.5?"#ff4da6":"#ffffff";
-
-p.style.background=color;
-
-let x=(Math.random()-0.5)*900+"px";
-
-let y=(Math.random()-0.5)*900+"px";
-
-p.style.setProperty("--x",x);
-
-p.style.setProperty("--y",y);
-
-document.body.appendChild(p);
-
-setTimeout(()=>{
-
-p.remove();
-
-},1800);
-
-}
-
-}
-function cambiarFaseOscura(){
-
-document.body.style.background="#000";
-
-const flores=document.querySelectorAll(".flor");
-
-flores.forEach(f=>{
-
-f.style.transition="2s";
-f.style.opacity="0";
-
-});
-
-const inicio=document.getElementById("inicio");
-
-inicio.style.transition="1.5s";
-inicio.style.opacity="0";
-
-setTimeout(()=>{
-
-inicio.style.display="none";
-
-const fase2=document.getElementById("fase2");
-
-fase2.style.display="flex";
-
-setTimeout(()=>{
-
-fase2.style.opacity="1";
-
-escribirBinario();
-
-iniciarParticulasFondo();
-
-},100);
-
-},1200);
-
-}
-
-function escribirBinario(){
-
-const texto=
-
-`01010011 01100101 01101110 01110100 01101001
-01101101 01101001 01100101 01101110 01110100
-01101111 01110011`;
-
-const destino=document.getElementById("binario");
-
-destino.innerHTML="";
-
-let i=0;
-
-let efecto=setInterval(()=>{
-
-destino.innerHTML+=texto.charAt(i);
-
-i++;
-
-if(i>=texto.length){
-
-clearInterval(efecto);
-
-}
-
-},20);
-
-}
-
-function iniciarParticulasFondo(){
-
-const canvas=document.getElementById("canvas");
-
-const ctx=canvas.getContext("2d");
-
-canvas.width=window.innerWidth;
-
-canvas.height=window.innerHeight;
-
-const particulas=[];
-
-for(let i=0;i<120;i++){
-
-particulas.push({
-
-x:Math.random()*canvas.width,
-
-y:Math.random()*canvas.height,
-
-r:Math.random()*2+1,
-
-dx:(Math.random()-0.5)*0.6,
-
-dy:(Math.random()-0.5)*0.6,
-
-a:Math.random()
-
-});
-
-}
-
-function animar(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-for(let p of particulas){
-
-ctx.beginPath();
-
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-
-ctx.fillStyle="rgba(255,105,180,"+p.a+")";
-
-ctx.fill();
-
-p.x+=p.dx;
-
-p.y+=p.dy;
-
-if(p.x<0)p.x=canvas.width;
-if(p.x>canvas.width)p.x=0;
-
-if(p.y<0)p.y=canvas.height;
-if(p.y>canvas.height)p.y=0;
-
-}
-
-requestAnimationFrame(animar);
-
-}
-
-animar();
-
-window.onresize=function(){
-
-canvas.width=window.innerWidth;
-
-canvas.height=window.innerHeight;
-
-};
-
-}
-
-function comprobar2(){
-
-const respuesta=document
-.getElementById("respuesta2")
-.value
-.trim()
-.toUpperCase();
-
-if(respuesta==="SENTIMIENTOS"){
-
-mostrarSegundaCarta();
-
-}else{
-
-alert("Esa no es la palabra correcta.");
-
-}
-
-}
-const segundaCarta=`¡Felicidades! Pudiste llegar aquí, ¿no habrás usado ninguna IA, no???? JAJAJA.
+    let indice = 0;
+    let tiempo = 10;
+    let intervaloEscritura = null;
+    let intervaloContador = null;
+
+    function comprobar1() {
+      const resp = document.getElementById('respuesta').value.trim().toUpperCase();
+      const error = document.getElementById('error');
+      if (resp === 'PERDER') {
+        error.innerHTML = '';
+        document.getElementById('ventana').classList.add('visible');
+        escribirCarta();
+      } else {
+        error.innerHTML = '❌ Esa no es la respuesta.';
+      }
+    }
+
+    function escribirCarta() {
+      const destino = document.getElementById('textoCarta');
+      destino.innerHTML = '';
+      indice = 0;
+      if (intervaloEscritura) clearInterval(intervaloEscritura);
+      intervaloEscritura = setInterval(() => {
+        destino.innerHTML += carta.charAt(indice);
+        indice++;
+        destino.scrollTop = destino.scrollHeight;
+        if (indice >= carta.length) {
+          clearInterval(intervaloEscritura);
+          setTimeout(iniciarCuentaAtras, 500);
+        }
+      }, 35);
+    }
+
+    function iniciarCuentaAtras() {
+      const contador = document.getElementById('contador');
+      contador.style.display = 'block';
+      tiempo = 10;
+      contador.innerHTML = tiempo;
+      if (intervaloContador) clearInterval(intervaloContador);
+      intervaloContador = setInterval(() => {
+        tiempo--;
+        contador.innerHTML = tiempo;
+        if (tiempo <= 0) {
+          clearInterval(intervaloContador);
+          cerrarCarta();
+        }
+      }, 1000);
+    }
+
+    function cerrarCarta() {
+      const carta = document.querySelector('.carta');
+      let escala = 1;
+      let opacidad = 1;
+      const anim = setInterval(() => {
+        escala -= 0.03;
+        opacidad -= 0.03;
+        carta.style.transform = 'scale(' + escala + ')';
+        carta.style.opacity = opacidad;
+        if (escala <= 0) {
+          clearInterval(anim);
+          document.getElementById('ventana').style.display = 'none';
+          crearParticulas();
+          setTimeout(cambiarFaseOscura, 800);
+        }
+      }, 20);
+    }
+
+    function crearParticulas() {
+      for (let i = 0; i < 150; i++) {
+        const p = document.createElement('div');
+        p.className = 'particula';
+        p.style.left = window.innerWidth / 2 + 'px';
+        p.style.top = window.innerHeight / 2 + 'px';
+        const color = Math.random() > 0.5 ? '#ff4da6' : '#ffffff';
+        p.style.background = color;
+        const x = (Math.random() - 0.5) * 900 + 'px';
+        const y = (Math.random() - 0.5) * 900 + 'px';
+        p.style.setProperty('--x', x);
+        p.style.setProperty('--y', y);
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 1800);
+      }
+    }
+
+    function cambiarFaseOscura() {
+      document.body.style.background = '#0b0b0b';
+      document.querySelectorAll('.flor').forEach(f => { f.style.opacity = '0'; });
+      const inicio = document.getElementById('inicio');
+      inicio.style.opacity = '0';
+      setTimeout(() => {
+        inicio.style.display = 'none';
+        const fase2 = document.getElementById('fase2');
+        fase2.classList.add('mostrar');
+        iniciarMatrix();
+      }, 1200);
+    }
+
+    // ========== MATRIX RAIN (letras y símbolos cayendo) ==========
+    let matrixInterval = null;
+
+    function iniciarMatrix() {
+      const canvas = document.getElementById('matrix-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*+-/=?<>^_|~';
+      const columnas = Math.floor(canvas.width / 18);
+      const gotas = [];
+
+      for (let i = 0; i < columnas; i++) {
+        gotas[i] = Math.floor(Math.random() * -canvas.height);
+      }
+
+      function dibujarMatrix() {
+        ctx.fillStyle = 'rgba(11, 11, 11, 0.07)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = '17px monospace';
+        ctx.textAlign = 'center';
+
+        for (let i = 0; i < gotas.length; i++) {
+          const char = chars[Math.floor(Math.random() * chars.length)];
+          const x = i * 18 + 9;
+          const y = gotas[i] * 18;
+
+          // degradado de verde
+          const brillo = Math.floor(150 + Math.random() * 105);
+          ctx.fillStyle = `rgba(0, ${brillo}, 100, 0.9)`;
+          ctx.fillText(char, x, y);
+
+          // gota principal más brillante
+          if (Math.random() > 0.975) {
+            ctx.fillStyle = '#b0ffc0';
+            ctx.fillText(char, x, y);
+          }
+
+          gotas[i] += 0.6 + Math.random() * 0.4;
+
+          if (gotas[i] * 18 > canvas.height && Math.random() > 0.98) {
+            gotas[i] = 0;
+          }
+        }
+        requestAnimationFrame(dibujarMatrix);
+      }
+
+      if (matrixInterval) cancelAnimationFrame(matrixInterval);
+      dibujarMatrix();
+
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        // reiniciar gotas
+        for (let i = 0; i < columnas; i++) {
+          gotas[i] = Math.floor(Math.random() * -canvas.height);
+        }
+      });
+    }
+
+    // ========== SEGUNDA CARTA (temática unificada, color negro) ==========
+    const segundaCarta = `¡Felicidades! Pudiste llegar aquí, ¿no habrás usado ninguna IA, no? ¡JAJAJA!
 
 Bueno, no pasa nada, sabía que lo lograrías. Eres una persona maravillosa e inteligente, y por no hablar de otras cualidades que tienes, las cuales también destacan por encima de las de muchas otras personas. <3
 
-Bueno, estas cartas son para sacarte una sonrisa y son una forma de que no te olvides de mí, ya que, aparte de que todo el trabajo de la página me lo trago yo, también me divierte hacerla porque me hace recordar lo increíble que eres.
+Estas cartas son para sacarte una sonrisa y son una forma de que no te olvides de mí, ya que, aparte de que todo el trabajo de la página me lo trago yo, también me divierte hacerla porque me hace recordar lo increíble que eres.
 
-Bueno... tendrás que esperar un tiempo antes de la siguiente carta.
+Tendrás que esperar un tiempo antes de la siguiente carta.
 
-Atentamente:
-
+Atentamente:  
 Jairo.
 
-Posdata: Gracias por ser mi amiga después de yo ser una tan mala persona. ;3;
+Posdata: Gracias por ser mi amiga después de yo ser una tan mala persona. ;3;`;
 
-function mostrarSegundaCarta(){
+    function comprobar2() {
+      const resp = document.getElementById('respuesta2').value.trim().toUpperCase();
+      if (resp === 'SENTIMIENTOS') {
+        mostrarSegundaCarta();
+      } else {
+        alert('❌ Esa no es la palabra correcta.');
+      }
+    }
 
-const carta=document.getElementById("segundaCarta");
+    function mostrarSegundaCarta() {
+      const cartaDiv = document.getElementById('segundaCarta');
+      cartaDiv.style.display = 'block';
+      cartaDiv.innerHTML = '';
+      let i = 0;
+      const escribir = setInterval(() => {
+        cartaDiv.innerHTML += segundaCarta.charAt(i);
+        i++;
+        if (i >= segundaCarta.length) {
+          clearInterval(escribir);
+          efectoFinal();
+        }
+      }, 30);
+    }
 
-carta.style.display="block";
+    function efectoFinal() {
+      for (let i = 0; i < 60; i++) {
+        const estrella = document.createElement('div');
+        estrella.style.position = 'fixed';
+        estrella.style.left = Math.random() * window.innerWidth + 'px';
+        estrella.style.top = Math.random() * window.innerHeight + 'px';
+        estrella.style.width = '4px';
+        estrella.style.height = '4px';
+        estrella.style.borderRadius = '50%';
+        estrella.style.background = '#00ffa3';
+        estrella.style.boxShadow = '0 0 18px #00ffa3';
+        estrella.style.opacity = '0';
+        estrella.style.transition = '2s';
+        estrella.style.zIndex = '50';
+        document.body.appendChild(estrella);
+        setTimeout(() => { estrella.style.opacity = '1'; }, 50 + i * 10);
+      }
+    }
 
-carta.innerHTML="";
+    // ========== ENTER para ambos inputs ==========
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const active = document.activeElement;
+        if (active && active.id === 'respuesta') comprobar1();
+        if (active && active.id === 'respuesta2') comprobar2();
+      }
+    });
 
-let i=0;
-
-let escribir=setInterval(()=>{
-
-carta.innerHTML+=segundaCarta.charAt(i);
-
-i++;
-
-if(i>=segundaCarta.length){
-
-clearInterval(escribir);
-
-efectoFinal();
-
-}
-
-},35);
-
-}
-
-function efectoFinal(){
-
-for(let i=0;i<80;i++){
-
-let estrella=document.createElement("div");
-
-estrella.style.position="fixed";
-
-estrella.style.left=Math.random()*window.innerWidth+"px";
-
-estrella.style.top=Math.random()*window.innerHeight+"px";
-
-estrella.style.width="3px";
-
-estrella.style.height="3px";
-
-estrella.style.borderRadius="50%";
-
-estrella.style.background="hotpink";
-
-estrella.style.boxShadow="0 0 10px hotpink";
-
-estrella.style.opacity="0";
-
-estrella.style.transition="2s";
-
-document.body.appendChild(estrella);
-
-setTimeout(()=>{
-
-estrella.style.opacity="1";
-
-},50);
-
-}
-
-}
-
-document.addEventListener("keydown",function(e){
-
-if(e.key==="Enter"){
-
-if(document.activeElement.id==="respuesta"){
-
-comprobar1();
-
-}
-
-if(document.activeElement.id==="respuesta2"){
-
-comprobar2();
-
-}
-
-}
-
-});
-
-</script>
-
+    // reiniciar contadores si se recarga
+    window.addEventListener('load', () => {
+      // pequeño fix para que el input tenga foco
+      document.getElementById('respuesta').focus();
+    });
+  </script>
 </body>
-
 </html>
