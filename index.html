@@ -372,7 +372,9 @@ opacity:0;
 transition:1s;
 
 }
-/* ===== Overlay ===== */
+/*==============================
+      VENTANA DE LA CARTA
+==============================*/
 
 #overlay{
 
@@ -380,7 +382,7 @@ position:fixed;
 
 inset:0;
 
-display:none;
+display:flex;
 
 justify-content:center;
 
@@ -390,125 +392,63 @@ background:rgba(0,0,0,.65);
 
 backdrop-filter:blur(10px);
 
-z-index:999;
-
-animation:fadeIn .5s;
-
-}
-
-@keyframes fadeIn{
-
-from{
-
 opacity:0;
 
+visibility:hidden;
+
+transition:.5s;
+
+z-index:999;
+
 }
 
-to{
+#overlay.activo{
 
 opacity:1;
 
-}
+visibility:visible;
 
 }
 
-/* ===== Sobre ===== */
+#ventana{
 
-#sobre{
-
-position:relative;
-
-width:420px;
+width:800px;
 
 max-width:90%;
 
-height:260px;
-
-perspective:1000px;
-
-}
-
-/* Base */
-
-#sobreBase{
-
-position:absolute;
-
-bottom:0;
-
-width:100%;
-
-height:170px;
-
-background:#ffe6ef;
-
-border-radius:0 0 18px 18px;
-
-box-shadow:0 15px 40px rgba(0,0,0,.35);
-
-}
-
-/* Tapa */
-
-#tapa{
-
-position:absolute;
-
-top:0;
-
-width:100%;
-
-height:150px;
-
-background:#ffb6cf;
-
-clip-path:polygon(0 100%,50% 0,100% 100%);
-
-transform-origin:top;
-
-transition:1s;
-
-z-index:4;
-
-}
-
-/* Carta */
-
-#carta{
-
-position:absolute;
-
-left:50%;
-
-bottom:30px;
-
-transform:translateX(-50%) translateY(120px);
-
-width:90%;
-
-height:420px;
-
-background:white;
-
-border-radius:18px;
-
-padding:30px;
+max-height:80vh;
 
 overflow:auto;
 
-opacity:0;
+padding:40px;
 
-transition:1.2s;
+background:rgba(255,255,255,.95);
+
+border-radius:30px;
+
+box-shadow:0 0 45px crimson;
 
 color:#222;
 
-line-height:1.8;
+line-height:1.9;
 
-font-size:18px;
-
-box-shadow:0 15px 45px rgba(0,0,0,.35);
+font-size:20px;
 
 white-space:pre-line;
+
+transform:scale(.4);
+
+opacity:0;
+
+transition:.6s cubic-bezier(.18,1.2,.35,1);
+
+}
+
+#overlay.activo #ventana{
+
+transform:scale(1);
+
+opacity:1;
 
 }
 </style>
@@ -568,20 +508,12 @@ white-space:pre-line;
 
     <div id="carta"></div>
 
-  <div id="overlay">
+</div>
+<div id="overlay">
 
-    <div id="sobre">
-
-        <div id="tapa"></div>
-
-        <div id="sobreBase"></div>
-
-        <div id="carta"></div>
-
-    </div>
+<div id="ventana"></div>
 
 </div>
-
 <audio id="musica" loop>
 
     <source src="lucy.mp3" type="audio/mpeg">
@@ -702,45 +634,32 @@ function comprobar(){
 function mostrarCarta(){
 
 const overlay=document.getElementById("overlay");
-const tapa=document.getElementById("tapa");
-const cartaDiv=document.getElementById("carta");
 
-overlay.style.display="flex";
+const ventana=document.getElementById("ventana");
 
-setTimeout(()=>{
+overlay.classList.add("activo");
 
-    tapa.style.transform="rotateX(180deg)";
+ventana.innerHTML="";
 
-},500);
+let i=0;
 
-setTimeout(()=>{
+const escribir=setInterval(()=>{
 
-    cartaDiv.style.opacity="1";
+ventana.innerHTML+=carta.charAt(i);
 
-    cartaDiv.style.transform="translateX(-50%) translateY(-120px)";
+ventana.scrollTop=ventana.scrollHeight;
 
-},1200);
-    cartaDiv.innerHTML="";
+i++;
 
-    let i=0;
+if(i>=carta.length){
 
-    const escribir=setInterval(()=>{
+clearInterval(escribir);
 
-        cartaDiv.innerHTML+=carta.charAt(i);
+iniciarContador();
 
-        cartaDiv.scrollTop=cartaDiv.scrollHeight;
+}
 
-        i++;
-
-        if(i>=carta.length){
-
-            clearInterval(escribir);
-
-            iniciarContador();
-
-        }
-
-    },28);
+},28);
 
 }
 
@@ -782,39 +701,31 @@ function iniciarContador(){
 
 function cerrarCarta(){
 
-    const carta=document.getElementById("carta");
+let tiempo=0;
 
-    const contador=document.getElementById("contador");
+const overlay=document.getElementById("overlay");
 
-    let escala=1;
+const ventana=document.getElementById("ventana");
 
-    let opacidad=1;
+const cerrar=setInterval(()=>{
 
-    const animacion=setInterval(()=>{
+tiempo+=0.03;
 
-        escala-=0.02;
+ventana.style.transform=`scale(${1-tiempo})`;
 
-        opacidad-=0.02;
+ventana.style.opacity=1-tiempo;
 
-        carta.style.transform=`scale(${escala})`;
+if(tiempo>=1){
 
-        carta.style.opacity=opacidad;
+clearInterval(cerrar);
 
-        contador.style.transform=`scale(${escala})`;
+overlay.classList.remove("activo");
 
-        contador.style.opacity=opacidad;
+explosion();
 
-        if(escala<=0){
+}
 
-            clearInterval(animacion);
-
-            contador.style.display="none";
-
-            explosion();
-
-        }
-
-    },20);
+},20);
 
 }
 
