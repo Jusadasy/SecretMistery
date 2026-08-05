@@ -391,10 +391,7 @@ position:fixed;
 
 inset:0;
 
-background:
-radial-gradient(circle at top,#181818,#000000 75%);
-
-backdrop-filter:blur(8px);
+background:black;
 
 color:white;
 
@@ -456,41 +453,27 @@ background:#ff4da6;
 
 display:none;
 
-margin:40px auto;
+margin-top:50px;
 
-width:70%;
+width:80%;
 
-max-width:780px;
+max-width:900px;
 
-background:rgba(20,20,20,.55);
+background:#111;
 
-backdrop-filter:blur(18px);
+padding:40px;
 
--webkit-backdrop-filter:blur(18px);
+border-radius:20px;
 
-padding:45px;
+border:2px solid hotpink;
 
-border-radius:25px;
-
-border:1px solid rgba(255,105,180,.5);
-
-box-shadow:
-0 0 25px rgba(255,105,180,.35),
-0 0 80px rgba(255,105,180,.15);
+box-shadow:0 0 25px hotpink;
 
 font-size:20px;
 
-line-height:2;
+line-height:1.8;
 
 white-space:pre-line;
-
-text-align:center;
-
-color:white;
-
-overflow-y:auto;
-
-max-height:65vh;
 
 }
 
@@ -929,27 +912,29 @@ Atentamente:
 
 Jairo.
 
-Posdata: Gracias por ser mi amiga después de yo ser una tan mala persona. ;3`;
+Posdata: Gracias por ser mi amiga después de yo ser una tan mala persona. ;3;
 
-function escribirSegundaCarta(){
+function mostrarSegundaCarta(){
 
-const destino=document.getElementById("segundaCarta");
+const carta=document.getElementById("segundaCarta");
 
-destino.innerHTML="";
+carta.style.display="block";
+
+carta.innerHTML="";
 
 let i=0;
 
-const efecto=setInterval(()=>{
+let escribir=setInterval(()=>{
 
-destino.innerHTML+=segundaCarta.charAt(i);
-
-destino.scrollTop=destino.scrollHeight;
+carta.innerHTML+=segundaCarta.charAt(i);
 
 i++;
 
 if(i>=segundaCarta.length){
 
-clearInterval(efecto);
+clearInterval(escribir);
+
+efectoFinal();
 
 }
 
